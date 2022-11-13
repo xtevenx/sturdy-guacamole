@@ -1,10 +1,9 @@
-\documentclass{scrartcl}  % KOMA-Script :o
+\documentclass[parskip=half]{scrartcl}  % KOMA-Script :o
 
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{geometry}
-\usepackage{setspace}
 \usepackage{xcolor}
 
 \usepackage{hyperref}
@@ -15,12 +14,12 @@
 
 \changefontsizes{10pt}
 
-% \geometry{paperheight=133.99mm, paperwidth=61.842mm}  % estimated screen
+% \geometry{paperheight=133.99mm, paperwidth=61.842mm} % estimated screen
 % \geometry{paperheight=183.64mm, paperwidth=100.06mm, margin=2mm} % good
 \geometry{paperheight=183.5mm, paperwidth=100mm, margin=2mm}
 
 \pagenumbering{gobble}
-\setstretch{1.236}
+\linespread{1.236}
 
 \pagecolor{black}
 \color{white}
@@ -41,7 +40,7 @@
 \maketitle
 
 
-\section{Beginning}
+\section{Foundational Definitions}
 
 
 \begin{definition}
@@ -63,7 +62,6 @@
     A \textbf{commutative group} is a group where the binary operation is
     commutative.
 \end{subdefinition}
-
 
 \begin{definition}
     A \textbf{ring} is a commutative group with another operation defined such
@@ -118,12 +116,10 @@
     A unit cannot be a zero-divisor.
 \end{remark}
 
-
 \begin{definition}
     An \textbf{integral domain} is a commutative ring with unity and no zero
     divisors.
 \end{definition}
-
 
 \begin{definition}
     A \textbf{field} is a commutative ring where every non-zero element is a
@@ -131,7 +127,7 @@
 \end{definition}
 
 
-\section{Developing}
+\section{Exploration}
 
 
 \begin{definition}
@@ -179,6 +175,9 @@
     It follows from Theorem \ref{thm:finite ring with unity} that every finite
     integral domain is a field.
 \end{remark}
+
+
+\section{Unique Factorization}
 
 
 \begin{definition}
@@ -421,6 +420,75 @@
     Not all unique factorization domains are principal ideal domains.
     (eg. $\mathbb{Z}[x]$ with $2\mathbb{Z}[x]+x\mathbb{Z}[x]$).
 \end{remark}
+
+
+\section{Ring Homomorphisms}
+
+
+\begin{definition}
+    A \textbf{ring homomorphism} for rings $R,S$ is a map $\varphi:R\to S$
+    satisfying $\varphi(a+b)=\varphi(a)+\varphi(b)$ and
+    $\varphi(ab)=\varphi(a)\varphi(b)$ for all $a,b\in R$.
+\end{definition}
+
+\begin{definition}
+    If there exists a $\varphi^{-1}:S\to R$ for a ring homomorphism
+    $\varphi:R\to S$ such that $\varphi^{-1}(\varphi(a))=a$ for all $a\in R$,
+    we call $R$ and $S$ \textbf{isomorphic}.
+\end{definition}
+
+\begin{remark}
+    We can show the inverse of a bijective ring homomorphism $\varphi:R\to S$
+    is also a ring homomorphism, therefore, $R$ and $S$ are isomorphic.
+\end{remark}
+
+\begin{remark}
+    For ring homomorphism $\varphi:R\to S$, we have $\varphi(0_R)=0_S$,
+    $\varphi(-a)=-\varphi(a)$ for all elements $a\in R$, and
+    $\varphi(a^{-1})=\varphi(a)^{-1}$ for all units $a\in R$.
+    We can also show $\varphi(R)=\{\varphi(r):r\in R\}$ is a subring of $S$.
+\end{remark}
+
+\begin{definition}
+    The \textbf{kernel} of $\varphi:R\to S$ is defined as
+    $\ker(\varphi)=\{\varphi(r)=0_S:r\in R\}$.
+\end{definition}
+
+\begin{remark}
+    We can show that $\ker(\varphi)$ is an ideal.
+\end{remark}
+
+\begin{theorem}
+    A ring homomorphism $\varphi:R\to S$ is injective if and only if
+    $\ker(\varphi)=\{0_R\}$.
+\end{theorem}
+
+\begin{proof}
+    Suppose, towards a contradiction, that $\varphi$ is not injective, that is,
+    there exists $a,b\in R$ satisfying $\varphi(a)=\varphi(b)$ and $a\neq b$.
+    Then, $a-b\in\ker(\varphi)$ but $a-b\neq 0_R$.
+\end{proof}
+
+\begin{theorem}
+    Let $R$ be a commutative ring with unity and $\varphi:R\to S$ be a
+    surjective ring homomorphism. Then, $S$ is an integral domain if and only
+    if $\ker(\varphi)$ is a prime ideal.
+\end{theorem}
+
+\begin{proof}
+    Let $a,b\in S$ with $\varphi(x)=a$ and $\varphi(y)=b$.
+    Suppose $\ker(\varphi)$ is a prime ideal.
+    Then, $ab=0\implies\phi(x)\phi(y)=0\implies\phi(xy)=0$ so either
+    $x\in\ker(\varphi)$ or $y\in\ker(\varphi)$.
+    Without loss of generality, let $x\in\ker(\varphi)$ so
+    $\varphi(x)=a=0$.
+
+    Suppose $\ker(\varphi)$ is not a prime ideal.
+    There exists $xy\in\ker(\varphi)$ such that $x\notin\ker(\varphi)$ and
+    $y\notin\ker(\varphi)$.
+    Then, $0=\varphi(xy)=\varphi(x)\varphi(y)=ab=0$ but $\varphi(x)\neq 0$ and
+    $\varphi(x)\neq 0$.
+\end{proof}
 
 
 \end{document}
