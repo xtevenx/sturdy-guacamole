@@ -490,5 +490,96 @@
     $\varphi(x)\neq 0$.
 \end{proof}
 
+\begin{theorem}
+    Let $R$ be a commutative ring with unity, $S$ a non-zero ring, and $\varphi:R\to S$ a
+    surjective ring homomorphism.
+    Then, $S$ is a field if and only if $\ker(\varphi)$ is a maximal ideal.
+\end{theorem}
+
+\begin{proof}
+    Suppose $\ker(\varphi)$ is maximal.
+    Let $b\in S$ be non-zero and define $J=\varphi^{-1}(bS)=\{\varphi(r)\in bS:r\in R\}$.
+    We can show that $J$ is an ideal satisfying $\ker(\varphi)\subseteq J\subseteq R$.
+    Then, by maximality of $J$, $\ker(\varphi)=J$ or $J=R$.
+    However, since $b\neq 0$, $J=R$ so $b$ is a unit.
+    It then follows that $S$ is a field.
+
+    Now suppose $\ker(\varphi)$ is not maximal, that is, there exists an ideal $I$ such that
+    $\ker(\varphi)\subset I\subset R$.
+    Pick $y\in I\setminus\ker(\varphi)$ and assume, for a contradiction, that $S$ is a field.
+    Then, there exists $x\in R$ such that $\varphi(x)\varphi(y)=1_S$ so $\varphi(xy)=\varphi(1_R)$.
+    It follows that $xy-1_R=r\in\ker(\varphi)$ so $1_R=xy-r\in I$ since $xy,r\in I$.
+    Therefore, $I=R$, a contradiction.
+\end{proof}
+
+\begin{theorem}
+    \label{thm:isomorphism}
+    If $\varphi:R\to S_1$ and $\psi:R\to S_2$ are surjective ring homomorphisms with
+    $\ker(\varphi)=\ker(\psi)$, there is a ring isomorphism $\sigma:S_1\to S_2$ where
+    $\sigma(\varphi(x))=\psi(x)$ for all $x\in R$.
+\end{theorem}
+
+\begin{proof}
+    Since $\sigma$ is a composition of ring homomorphisms, it itself is a ring homomorphism.
+    Therefore, it suffices to show $\sigma$ is both injective and surjective.
+
+    Let $x,y\in R$ such that $\sigma(\varphi(x))=\sigma(\varphi(y))$.
+    Then, $\psi(x)=\psi(y)$ so $\psi(x-y)=0_{S_2}$ and $x-y\in\ker(\psi)$.
+    Since $\ker(\psi)=\ker(\varphi)$, $x-y\in\ker(\varphi)$ so $\varphi(x)=\varphi(y)$.
+    Therefore, $\sigma$ is injective.
+
+    For any $b\in S_2$, we have $\psi(x)=b$ for some $x\in R$.
+    Then, $\sigma(\varphi(x))=b$ so $\sigma$ is surjective.
+\end{proof}
+
+\begin{remark}
+    It follows from Theorem \ref{thm:isomorphism} that, for a surjective homomorphism
+    $\varphi:R\to S$, $S$ is entirely determined (up to isomorphism) by $R$ and $\ker(\varphi)$.
+\end{remark}
+
+\begin{definition}
+    For ring $R$, ideal $I\subseteq R$, and $a\in R$, the \textbf{coset} of $a$ modulo $I$ is
+    defined $a+I=\{a+x:x\in I\}=[a]_I$.
+\end{definition}
+
+\begin{theorem}
+    \label{thm:cosets disjoint}
+    Let $a+I$ and $b+I$ be cosets.
+    Then, either $a+I=b+I$ or $(a+I)\cap(b+I)=\emptyset$.
+\end{theorem}
+
+\begin{proof}
+    Suppose $(a+I)\cap(b+I)\neq\emptyset$ and let $c\in(a+I)\cap(b+I)$.
+    Then, $c=a+x=b+y\implies a-b=y-x\in I$.
+    Now, for all $a+z\in a+I$, $a+z-(a-b)=z+b\in b+I$.
+\end{proof}
+
+\begin{definition}
+    The \textbf{quotient ring} for ring $R$ by an ideal $I\subseteq R$ is denoted
+    $R/I=\{a+I:a\in R\}$ and represents the collection of cosets modulo $I$.
+\end{definition}
+
+\begin{remark}
+    It follows from Theorem \ref{thm:cosets disjoint} that the map for $\varphi:R\to R/I$ where
+    $a\mapsto a+I$ is well defined.
+    Furthermore, we can show $\varphi$ is a surjective ring homomorphism with $\ker(\varphi)=I$.
+\end{remark}
+
+\begin{theorem}[Chinese Remainder Theorem]
+    Let $R$ be a commutative ring with unity and $I,J\subset R$ be ideals satisfying $I+J=R$.
+    Then, there is an isomorphism between $R/(I+J)$ and $R/I\times R/J$ defined
+    $a+(I\cap J)\mapsto (a+I,a+J)$.
+\end{theorem}
+
+\begin{proof}
+    We explain the isomorphism via Theorem \ref{thm:isomorphism}.
+    Define $\varphi:R\to R/(I\cap J)$ as $\varphi(a)\mapsto a+(I\cap J)$ and
+    $\psi:R\to R/I\times R/J$ as $\psi(a)\mapsto(a+I,a+J)$.
+    Then, $\ker(\varphi)=\ker(\psi)$ since $c\in(I\cup J)\iff c\in I$ and $c\in J$.
+    Also, $\varphi$ is surjective by definition.
+    Therefore, it suffices to show $\psi$ is surjective.
+    \begin{center}\texttt{INCOMPLETE!! :D}\end{center}
+\end{proof}
+
 
 \end{document}
