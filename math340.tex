@@ -1,4 +1,8 @@
-\documentclass[parskip=half]{scrartcl}  % KOMA-Script :o
+\documentclass[
+    parskip=half,
+    toc=flat,
+    toc=sectionentrydotfill,
+]{scrartcl}  % KOMA-Script :o
 
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -19,13 +23,10 @@
 % \geometry{paperheight=183.64mm, paperwidth=100.06mm, margin=2mm} % good
 \geometry{paperheight=183.5mm, paperwidth=100mm, margin=2mm}
 
-\pagenumbering{gobble}
 \linespread{1.236}
 
-\definecolor{GithubHeader}{HTML}{161b22}
-\pagecolor{GithubHeader}
-% \definecolor{GithubSidebar}{HTML}{0d1117}
-% \pagecolor{GithubSidebar}
+\definecolor{GithubSidebar}{HTML}{0d1117}
+\pagecolor{GithubSidebar}
 \color{white}
 
 \theoremstyle{definition}
@@ -41,7 +42,10 @@
 \newtheorem{remark}{Remark}[definition]
 
 \begin{document}
+
 \maketitle
+
+\tableofcontents
 
 
 \section{Fundamental Definitions}
