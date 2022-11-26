@@ -157,6 +157,7 @@
 \end{proof}
 
 \begin{theorem}[Euler's Theorem]
+    \label{thm:Euler's Theorem}
     Let $R^*$ be the finite set of the units in a ring.
     For all $a\in R^*$, $a^{|R^*|}=1$.
 \end{theorem}
@@ -755,6 +756,113 @@
     $\alpha^0,\dots,\alpha^{d-1}$ so $\varphi(F[x])=F(\alpha)$ which means $\varphi$ is surjective.
     Finally, $\ker(\varphi)=\langle P\rangle$ because every $g\in F[x]$ with $g(\alpha)=0$ is
     divisible by $P$ (Theorem \ref{thm:minimal polynomial is unique and irreducible}).
+\end{proof}
+
+% After this is good! :D
+
+\begin{theorem}[Kronecker]
+    Let $F$ be a field and $g\in F[x]$ be a polynomial of degree at least 1.
+    There is a field extension $E$ of $F$ such that $g$ has a root in $E$.
+\end{theorem}
+
+\begin{proof}
+    It suffices to prove the theorem for irreducible polynomials $g\in F[x]$ without a root in $F$.
+    Let $E=F[x]/\langle g\rangle$ and take $\alpha=x+\langle g\rangle\in E$.
+    Then, $g(\alpha)=0$.
+\end{proof}
+
+\begin{definition}
+    A \textbf{splitting field} of a polynomial $g\in F[x]$ is an extension
+    $F(\alpha_1)\cdots(\alpha_r)$ such that $g(x)=c\prod (x-\alpha_i)^{e_i}$.
+\end{definition}
+
+\begin{theorem}
+    \label{thm:splitting fields are isomorphic}
+    Let $g\in F[x]$ be a polynomial.
+    All splitting fields of $g$ are isomorphic.
+\end{theorem}
+
+\begin{proof}
+    Let $E_1,E_2$ be two splitting fields of $g$.
+    We proceed by induction on $\deg(g)$ to show that they are isomorphic.
+    If $\deg(g)=1$, $F=E_1=E_2$ so the fields are isomorphic.
+
+    Suppose $g$ has degree at least 2.
+    Choose $P$ to be an irreducible factor of $g$ satisfying $\deg(P)\geq 2$.
+    Then, $P$ must contain two roots, so let $\alpha\in E_1$ and $\beta\in E_2$ be two roots of $P$.
+    Since $F[x]\cong F(\alpha)\subseteq E_1$ and $F[x]\cong F(\beta)\subseteq E_2$, we have that
+    both $E_1$ and $E_2$ contain subfields isomorphic to $F[x]/\langle P\rangle$.
+    However, we also have $g(x)=(x-\alpha)h_1(x)=(x-\beta)h_2(x)$ in $F[x]/\langle P\rangle$.
+    It then follows that $E_1\cong E_2$
+\end{proof}
+
+\begin{remark}
+    \label{rem:same size fields are isomorphic}
+    In finite field $F$ with $m$ elements, $a^m-a=0$ for all $a\in F$ (by Theorem \ref{thm:Euler's Theorem}).
+    Therefore, $F$ is a splitting field of $x^m-x=0$.
+    It follows from Theorem \ref{thm:splitting fields are isomorphic} that all fields with the same
+    number of elements are isomorphic.
+\end{remark}
+
+\begin{remark}
+    We want to show there exists a field unique field with exactly $p^n$ elements for all primes
+    and positive integers $n$.
+    Since we have Remark \ref{rem:same size fields are isomorphic}, it suffices to show there
+    exists a field of $p^n$ elements for all $p^n$.
+    To do so, we show the splitting field of $x^{p^n}-x\in (\mathbb{Z}/p\mathbb{Z})[x]$ has exactly
+    $p^n$ elements.
+\end{remark}
+
+\begin{theorem}
+    A splitting field of $x^{p^n}-x\in (\mathbb{Z}/p\mathbb{Z})[x]$ has at least $p^n$ elements.
+\end{theorem}
+
+\begin{proof}
+    We will show $g=x^{p^n}-x$ has $p^n$ different roots, and it suffices to show $g$ has no
+    duplicate linear factors.
+    Let $h$ be a linear polynomial, then $h^2\mid g$ if and only if $h\mid g$ and $h\mid g^\prime$,
+    where $g^\prime$ is the \textit{formal derivative} of $g$.
+    However, $g^\prime=p^nx^{p^n-1}-1=-1$ since $\mathbb{Z}/p\mathbb{Z}$ is of characteristic $p$.
+\end{proof}
+
+\begin{theorem}[Freshman's Dream]
+    \label{Freshman's Dream}
+    Let $R$ be a commutative ring with unity and prime characteristic $p$.
+    Then, $(a+b)^p=a^p+b^p$ for all $a,b\in R$.
+\end{theorem}
+
+\begin{proof}
+    Recall that $p\mid\binom{p}{n}$ if and only if $n\in\{1,\dots,p-1\}$.
+    Then, we easily see $(a+b)^p=\sum_{n=0}^p\binom{p}{n}a^nb^{p-n}=a^p+b^p$.
+\end{proof}
+
+\begin{theorem}
+    If $F$ is a finite field with characteristic $p$, then $\phi(a)=a^p$ is a field automorphism.
+\end{theorem}
+
+\begin{proof}
+    The fact that $\phi$ is a homomorphism follows from Theorem \ref{Freshman's Dream}.
+    Also note $\ker(\phi)$ is an ideal.
+    Then, since $F$ is a field and $\phi(1)=1$, we see that $1\notin\ker(\phi)$ so $\ker(\phi)=\{0\}$.
+
+    From here, it suffices to show $\phi$ is surjective.
+    This follows from the fact that $F$ has no zero divisors.
+\end{proof}
+
+\begin{theorem}
+    Let $F$ be a field with characteristic $p$.
+    Then $R=\{\alpha\in F:\alpha^{p^n}=\alpha\}$ is a subfield of $F$.
+\end{theorem}
+
+\begin{theorem}
+    There exists a field $F$ with $p^n$ elements.
+\end{theorem}
+
+\begin{proof}
+    Let $E$ be a splitting field of $x^{p^n}-x=0\in (\mathbb{Z}/p\mathbb{Z})[x]$.
+    We see that the subfield $R=\{\alpha\in E:a^{p^n}=a\}\subseteq E$ contains exactly $p^n$ elements.
+    However, $R$ contains all the roots of $x^{p^n}-x=0$, so $R=E$.
+    This completes the proof.
 \end{proof}
 
 
