@@ -1,0 +1,129 @@
+\documentclass[
+    parskip=half,
+    toc=flat,
+    toc=sectionentrydotfill,
+]{scrartcl}  % KOMA-Script :o
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage{enumitem}
+\usepackage{geometry}
+\usepackage{xcolor}
+
+\usepackage{hyperref}
+
+\title{Galois Theory}
+\subtitle{MATH 440}
+\author{Steven Xia}
+
+\changefontsizes{10pt}
+
+% \geometry{paperheight=133.99mm, paperwidth=61.842mm} % estimated screen
+% \geometry{paperheight=183.64mm, paperwidth=100.06mm, margin=2mm} % good
+\geometry{paperheight=183.5mm, paperwidth=100mm, margin=2mm}
+
+\linespread{1.236}
+
+\definecolor{GithubSidebar}{HTML}{0d1117}
+\pagecolor{GithubSidebar}
+\color{white}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{subdefinition}{Definition}[definition]
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{proposition}{Proposition}[section]
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+
+\newcommand{\Z}{\mathbb{Z}}
+\renewcommand{\gcd}[1]{\textup{gcd}(#1)}
+\newcommand{\lcm}[1]{\textup{lcm}(#1)}
+\newcommand{\ord}[1]{\textup{ord}(#1)}
+
+\setlist[enumerate,1]{label={(\roman*)}}
+
+\begin{document}
+
+\maketitle
+
+\begin{minipage}{\textwidth} % Somehow makes this look better.
+\begin{quote} 
+    \center{\itshape Galois Theory is the study of symmetries among roots of polynomials.}
+    \flushright{\small --- Professor (Spring 2023)}
+\end{quote}
+\end{minipage}
+
+\tableofcontents
+
+
+\section{Introduction}
+
+\begin{definition}
+    The \textbf{degree} of $K$ over $L$ is written $[K:L]$.
+\end{definition}
+
+\begin{proposition}
+    Let $F\subseteq K$ and $K\subseteq L$ be field extensions.
+    Then, $[L:F]=[L:K][K:F]$.
+\end{proposition}
+
+\begin{proof}
+    We may assume $[L:K]$ and $[K:F]$ are finite.
+    Then, $L$ has $K$-basis $\{a_1,\dots,a_k\}$ and $K$ has $F$-basis $\{b_1,\dots,b_f\}$.
+    We can show $\{a_ib_j\}$ is an $F$-basis of $L$.
+\end{proof}
+
+\begin{definition}
+    A field extension $F\subseteq K$ is \textbf{finite} if the degree of $K$
+    over $F$ is finite.
+\end{definition}
+
+\begin{definition}
+    A field extension $F\subseteq K$ is \textbf{finitely generated} if there
+    exists a finite set $S$ such that $F(S)=K$.
+\end{definition}
+
+\begin{proposition}
+    \label{prop: finite implies finitely generated}
+    A $F\subseteq K$ is finitely generated if it is finite.
+\end{proposition}
+
+\begin{definition}
+    For $F\subseteq K$, some $\alpha\in K$ is \textbf{algebraic} over $F$ if
+    there exists a non-constant $f\in F[x]$ such that $f(\alpha)=0$.
+\end{definition}
+
+\begin{definition}
+    The minimal polynoimial of $\alpha$ over $F$ is written $m_{\alpha,F}(\alpha)=0$.
+    Then, the degree of $\alpha$ over $F$ is $\deg(m_{\alpha,F})$.
+\end{definition}
+
+\begin{definition}
+    A $F\subseteq K$ is an algebraic field extension if every $\alpha\in K$ is algebraic.
+\end{definition}
+
+\begin{theorem}
+    A $F\subseteq K$ is finite if and only if it is finitely generated and algebraic.
+\end{theorem}
+
+\begin{proof}
+    Suppose $F\subseteq K$ is finite.
+    We will show $K$ is algebraic over $F$ (finitely generated follows from
+    Proposition \ref{prop: finite implies finitely generated}).
+    Let $\alpha\in K$ be nonzero and see that $\alpha^0,\dots,\alpha^m\in K$ is
+    linearly dependent if $m\geq\deg(m_{\alpha,F})=[K:F]$.
+
+    Now, suppose $K=F(\alpha_1,\dots,\alpha_m)$ is algebraic and define
+    $K_i=K_{i-1}(\alpha_i)$ with $K_0=F$.
+    By an implicit induction on $i$, we see that $K_m=K$ is finite.
+\end{proof}
+
+
+\end{document}
