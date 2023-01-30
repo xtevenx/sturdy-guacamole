@@ -212,6 +212,17 @@
     elementary symmetric polynomials.
 \end{theorem}
 
+\begin{definition}
+    The descriminant of a polynomial $f$ with roots $\alpha_1,\dots,\alpha_n$
+    is $\Delta(f)=\prod_{i<j}(\alpha_i-\alpha_j)^2$.
+\end{definition}
+
+\begin{remark}
+    The \textbf{discriminant} of $f$ is a symmetric polynomial in its roots,
+    and the elementary symmetric polynomials are (up to negation) the
+    coefficients of $f$.
+\end{remark}
+
 \begin{theorem}[Algebra]
     Every non-constant polynomial with complex coefficients has at least one
     complex root.
@@ -231,6 +242,76 @@
     $Gal(K/F)$, is the set of automorphisms of $K$ such that $F$ is fixed
     pointwise.
 \end{definition}
+
+\begin{definition}
+    A \textbf{left action} of a group $G$ on a set $X$ is a map
+    $G\times X\to X$ written $(g,x)\mapsto g.x$ such that $e\in G$ satisfies
+    $e.x=x$ for all $x$ and $g.(h.x)=(gh).x$ for all $g,h\in G$.
+\end{definition}
+
+\begin{definition}
+    The \textbf{standard left action} of $H\leq G$ on $G$ is the left action
+    defined $(h,g)\mapsto hg$.
+\end{definition}
+
+\begin{definition}
+    The \textbf{conjugation action} of $H\leq G$ on $G$ is the left action
+    defined $(h,g)\mapsto hgh^{-1}$.
+\end{definition}
+
+\begin{definition}
+    The \textbf{orbit} of $x\in X$ under group action $G$ is defined
+    $G.x=\{g.x:g\in G\}$.
+\end{definition}
+
+\begin{theorem}
+    The orbits under an action form a partition.
+\end{theorem}
+
+% \begin{proof}
+%     Let $G$ act on $X$.
+%     Suppose $y\in G.x$ by $y=g.x$ where $g\in G$ and $x,y\in X$.
+%     Then, $h.x=h.(g^{-1}.y)$ for all $h\in G$.
+% \end{proof}
+
+\begin{definition}
+    The \textbf{stabilizers} of $x\in X$ under group action $G$ is defined
+    $G_x=\{g\in G:g.x=x\}$.
+\end{definition}
+
+\begin{theorem}
+    \label{thm:stabilizers are groups}
+    Every stabilizer forms a group.
+\end{theorem}
+
+\begin{definition}
+    For groups $H\leq G$ and $g\in G$, a \textbf{left coset} of $H$ in $G$ is
+    defined $gH=\{gh:h\in H\}$.
+    We write $G/H$ to denote the set of left cosets of $H$ in $G$.
+\end{definition}
+
+\begin{definition}
+    The \textbf{index} of $H$ in $G$ is the number of left cosets of $H$ in
+    $G$.
+    We write $[G:H]$ to denote this value.
+\end{definition}
+
+\begin{definition}
+    Orbits under a conjugation action $H\leq G$ are called
+    \textbf{conjugacy classes} under conjugation by $H$.
+\end{definition}
+
+\begin{theorem}[Orbit-stabilizer]
+    Let $H\leq G$ be groups.
+    For all $x\in G$, there is a bijection $G.x\to G/G_x$.
+\end{theorem}
+
+\begin{proof}
+    Define $\phi:G\to G.x$ where $\phi(g)=g.x$, a surjective map.
+    We see that $\phi(g)=\phi(h)\iff g.x=h.x\iff g^{-1}h\in G_x$.
+    By Theorem $\ref{thm:stabilizers are groups}$, it follows that $gG_x=hG_x$.
+    Therefore, the map $gG_x\mapsto g.x$ is a bijection.
+\end{proof}
 
 
 \end{document}
