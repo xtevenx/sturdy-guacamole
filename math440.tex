@@ -63,7 +63,7 @@
 \tableofcontents
 
 
-\section{Introduction}
+\section{Exploration of Fields}
 
 \begin{definition}
     The \textbf{degree} of $K$ over $L$ is written $[K:L]$.
@@ -229,7 +229,7 @@
 \end{theorem}
 
 
-\section{Groups}
+\section{Groups and Actions}
 
 
 \begin{definition}
@@ -296,11 +296,6 @@
     We write $[G:H]$ to denote this value.
 \end{definition}
 
-\begin{definition}
-    Orbits under a conjugation action $H\leq G$ are called
-    \textbf{conjugacy classes} under conjugation by $H$.
-\end{definition}
-
 \begin{theorem}[Orbit-stabilizer]
     Let $H\leq G$ be groups.
     For all $x\in G$, there is a bijection $G.x\to G/G_x$.
@@ -308,10 +303,62 @@
 
 \begin{proof}
     Define $\phi:G\to G.x$ where $\phi(g)=g.x$, a surjective map.
-    We see that $\phi(g)=\phi(h)\iff g.x=h.x\iff g^{-1}h\in G_x$.
-    By Theorem $\ref{thm:stabilizers are groups}$, it follows that $gG_x=hG_x$.
-    Therefore, the map $gG_x\mapsto g.x$ is a bijection.
+    We see $\phi(g)=\phi(h)\iff g.x=h.x\iff g^{-1}h\in G_x\iff
+    g^{-1}hG_x=G_x\iff hG_x=gG_x$, so $gG_x\mapsto g.x$ is bijective.
 \end{proof}
+
+\begin{theorem}[Lagrange]
+    For $H\leq G$, $|G|=[G:H]|H|$.
+\end{theorem}
+
+\begin{definition}
+    Orbits under a conjugation action $H\leq G$ are called
+    \textbf{conjugacy classes} under conjugation by $H$.
+\end{definition}
+
+\begin{definition}
+    The \textbf{center} of a group $G$ is defined
+    $Z(G)=\{z\in G:\forall g\in G, gz=zg\}$.
+\end{definition}
+
+\begin{theorem}[Class Equation]
+    For a finite group $G$, $|G|=Z(G)+\sum_{H\in O}[G:H]$ for $O$ the set of
+    all conjugacy classes disjoint from the center of $G$.
+\end{theorem}
+
+\begin{definition}
+    A \textbf{normal subgroup} $H\leq G$ is one which satisfies $gHg^{-1}=H$
+    for all $g\in G$.
+    We then denote $H\trianglelefteq G$.
+\end{definition}
+
+\begin{remark}
+    A subgroup $H\leq G$ is normal if and only if $ghg^{-1}\in H$ for all
+    $h\in H$ and $g\in G$.
+\end{remark}
+
+\begin{theorem}
+    The quotient by a normal subgroup is a group.
+\end{theorem}
+
+\begin{theorem}
+    The normal subgroups of $G$ are exactly those which arise as kernels of
+    group homomorphisms from $G$.
+\end{theorem}
+
+\begin{theorem}[Group Isomorphism]
+    For $\phi:G\to H$ a surjective group homomorphism, $G/\ker\phi$ and $H$ are
+    isomorphic.
+\end{theorem}
+
+\begin{remark}
+    A group action $\rho:G\times X\to X$ can be viewed as a group homomorphism
+    $\phi:G\to S_X$, where $g\in G$ is mapped to the permutation of $X$ that
+    its associated action does.
+\end{remark}
+
+
+\section{Back to Fields}
 
 
 \end{document}
