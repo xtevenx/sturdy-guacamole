@@ -1,0 +1,127 @@
+\documentclass[
+    parskip=half,
+    toc=flat,
+    toc=sectionentrydotfill,
+]{scrartcl}  % KOMA-Script :o
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage{enumitem}
+\usepackage{geometry}
+\usepackage{xcolor}
+
+\usepackage{hyperref}
+
+\title{Algebra III: Groups}
+\subtitle{MATH 341}
+\author{Steven Xia}
+
+\changefontsizes{10pt}
+
+\geometry{paperheight=183.5mm, paperwidth=100mm, margin=2mm}
+
+\linespread{1.236}
+
+\definecolor{GithubSidebar}{HTML}{0d1117}
+\pagecolor{GithubSidebar}
+\color{white}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{subdefinition}{Definition}[definition]
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{proposition}{Proposition}[section]
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+
+\newcommand{\Z}{\mathbb{Z}}
+\renewcommand{\gcd}[1]{\textup{gcd}(#1)}
+\newcommand{\lcm}[1]{\textup{lcm}(#1)}
+\newcommand{\ord}[1]{\textup{ord}(#1)}
+
+\setlist[enumerate,1]{label={(\roman*)}}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Assorted Introductions}
+
+\begin{center}
+    \textbf{Author's Remark}\\
+    This section is weird because most of the material was already covered
+    either in MATH 340 or MATH 440.
+    There is missing material, and I was simply too lazy to add it.
+\end{center}
+
+\begin{theorem}[Internal Characterization]
+    For $G_1,G_2\subseteq G$ groups, $G\cong G_1\times G_2$ if and only if all
+    the following apply:
+    \begin{enumerate}[nosep]
+        \item $G=\{g_1g_2:g_1\in G_1,g_2\in G_2\}$,
+        \item $G_1\cap G_2=\{e_G\}$, and
+        \item $g_1g_2=g_2g_1$ for all $g_1\in G_1$ and $g_2\in G_2$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    Tedious rule checking.
+\end{proof}
+
+\begin{theorem}[Cayley]
+    Every finite group of order $n$ is isomorphic to some subgroup of $S_n$.
+\end{theorem}
+
+\begin{proof}
+    Let $G$ be a finite group of order $n$.
+    Define $\phi:G\to S_n$ as $\phi(g)=\sigma_g$, where $\sigma_g(h)=gh$, an
+    isomorphism.
+\end{proof}
+
+\begin{theorem}[Lagrange]
+    Let $H\subseteq G$ be groups (not necessarily finite).
+    Then, $|G|=[G:H]|H|$.
+\end{theorem}
+
+\begin{proof}
+    We prove only for the finite case, by seeing that cosets partition the
+    group, and that all cosets are of the same size.
+\end{proof}
+
+\begin{theorem}[Cauchy]
+    Let $G$ be a finite group of order $n$.
+    If a prime $p$ divides $n$, there exists an element of order $p$.
+\end{theorem}
+
+\begin{proof}
+    Define $X=\{(x_1,\dots,x_p)\in G^p:x_1\cdots x_p=e\}$ and see that $x_p$
+    is determined entirely by the choices of $x_1,\dots,x_{p-1}$.
+    Since $x_1,\dots,x_{p-1}$ can be chosen arbitrarily, $|X|=n^{p-1}$.
+
+    Let $C_p$ act on $X$ by cyclic permutation of the $p$-tuple.
+    Since stabilizers are subgroups, the orbit-stabilizer theorem says that all
+    orbits of $X$ are size either $1$ or $p$.
+    We note an orbit of some $(x_1,\dots,x_p)\in X$ is size $1$ if and only if
+    $x_1=\dots=x_p$, id est, $x_1$ is of order $p$ or $x_1=e$.
+    Finally, since $|X|$ is a multiple of $p$, the class equation says there
+    must be at least $p$ elements of with an orbit of size $1$, hence $p-1$
+    elements of order $p$.
+\end{proof}
+
+\begin{theorem}
+    Let $H\subseteq G$ be a normal subgroup.
+    Then, the quotient set $G/H$ has a group structure.
+\end{theorem}
+
+\begin{proof}
+    Tedious rule checking.
+\end{proof}
+
+
+\end{document}
