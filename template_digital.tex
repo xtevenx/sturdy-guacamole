@@ -1,0 +1,40 @@
+\documentclass[fontsize=11pt, parskip=half]{scrartcl}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{calc}
+\usepackage{enumitem}
+\usepackage{xcolor}
+
+\usepackage[headsepline]{scrlayer-scrpage}
+\ihead{Student [Student Number]}
+\ohead{Class -- Assignment}
+
+\linespread{1.236}
+
+\definecolor{ProblemBackground}{HTML}{EEEEEE}
+\setlength{\fboxsep}{11pt}
+
+\newcounter{ProblemCounter}
+\newcommand{\SkipProblem}{\stepcounter{ProblemCounter}}
+\newcommand{\HomeworkProblem}[1]{
+    \vspace{\baselinestretch em}
+    \stepcounter{ProblemCounter}\colorbox{ProblemBackground}{%
+        \begin{minipage}{\textwidth-2\fboxsep}
+            \begin{enumerate}[nosep]\item[\arabic{ProblemCounter}.]{#1}\end{enumerate}
+        \end{minipage}%
+    }\vspace{\fboxsep-{\baselinestretch em}}
+}
+
+
+\begin{document}
+\pagenumbering{gobble}
+
+
+\HomeworkProblem{
+
+}
+
+
+\end{document}
