@@ -7,10 +7,14 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
-\usepackage{cancel}
 \usepackage{enumitem}
+\usepackage{fontspec}
 \usepackage{geometry}
+\usepackage{unicode-math}
 \usepackage{xcolor}
+
+\setmainfont{STIX Two Text}
+\setmathfont{STIX Two Math}
 
 \usepackage{hyperref}
 
@@ -30,20 +34,13 @@
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
-\newtheorem{subdefinition}{Definition}[definition]
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{corollary}{Corollary}[theorem]
-\newtheorem{proposition}{Proposition}[section]
 
 \theoremstyle{remark}
 \newtheorem{remark}{Remark}[section]
-
-\newcommand{\Z}{\mathbb{Z}}
-\renewcommand{\gcd}[1]{\textup{gcd}(#1)}
-\newcommand{\lcm}[1]{\textup{lcm}(#1)}
-\newcommand{\ord}[1]{\textup{ord}(#1)}
 
 \setlist[enumerate,1]{label={(\roman*)}}
 
@@ -51,18 +48,19 @@
 \maketitle
 \tableofcontents
 
+
 \section{Assorted Introductions}
+
 
 \begin{center}
     \textbf{Author's Remark}\\
-    This section is weird because most of the material was already covered
-    either in MATH 340 or MATH 440.
-    There is missing material, and I was simply too lazy to add it.
+    This section is weird because most of the material was already covered either in MATH 340 or
+    MATH 440.
+    There is missing material, and I am simply too lazy to add it.
 \end{center}
 
 \begin{theorem}[Internal Characterization]
-    For $G_1,G_2\subseteq G$ groups, $G\cong G_1\times G_2$ if and only if all
-    the following apply:
+    For $G_1,G_2\subseteq G$ groups, $G\cong G_1\times G_2$ if and only if all the following apply:
     \begin{enumerate}[nosep]
         \item $G=\{g_1g_2:g_1\in G_1,g_2\in G_2\}$,
         \item $G_1\cap G_2=\{e_G\}$, and
@@ -80,18 +78,17 @@
 
 \begin{proof}
     Let $G$ be a finite group of order $n$.
-    Define $\phi:G\to S_n$ as $\phi(g)=\sigma_g$, where $\sigma_g(h)=gh$, an
-    isomorphism.
+    Define $\phi:G\to S_n$ as $\phi(g)=\sigma_g$ where $\sigma_g(h)=gh$, an isomorphism.
 \end{proof}
 
 \begin{theorem}[Lagrange]
     Let $H\subseteq G$ be groups (not necessarily finite).
-    Then, $|G|=[G:H]|H|$.
+    Then, $|G|=[G:H]|H|$ (with cardinality if infinite).
 \end{theorem}
 
 \begin{proof}
-    We prove only for the finite case, by seeing that cosets partition the
-    group, and that all cosets are of the same size.
+    We prove only for the finite case, by seeing that cosets partition the group, and that all
+    cosets are of the same size.
 \end{proof}
 
 \begin{theorem}[Cauchy]
@@ -100,18 +97,17 @@
 \end{theorem}
 
 \begin{proof}
-    Define $X=\{(x_1,\dots,x_p)\in G^p:x_1\cdots x_p=e\}$ and see that $x_p$
-    is determined entirely by the choices of $x_1,\dots,x_{p-1}$.
+    Define $X=\{(x_1,\dots,x_p)\in G^p:x_1\cdots x_p=e\}$ and see that $x_p$ is determined entirely
+    by the choices of $x_1,\dots,x_{p-1}$.
     Since $x_1,\dots,x_{p-1}$ can be chosen arbitrarily, $|X|=n^{p-1}$.
 
-    Let $C_p$ act on $X$ by cyclic permutation of the $p$-tuple.
-    Since stabilizers are subgroups, the orbit-stabilizer theorem says that all
-    orbits of $X$ are size either $1$ or $p$.
-    We note an orbit of some $(x_1,\dots,x_p)\in X$ is size $1$ if and only if
-    $x_1=\dots=x_p$, id est, $x_1$ is of order $p$ or $x_1=e$.
-    Finally, since $|X|$ is a multiple of $p$, the class equation says there
-    must be at least $p$ elements of with an orbit of size $1$, hence $p-1$
-    elements of order $p$.
+    Let $\mathbb{Z}_p$ act on $X$ by cyclic permutation of the $p$-tuple.
+    Since stabilizers are subgroups, the orbit-stabilizer theorem says that all orbits of $X$ are
+    size either $1$ or $p$.
+    We note an orbit of some $(x_1,\dots,x_p)\in X$ is size $1$ if and only if $x_1=\dots=x_p$, id
+    est, $x_1$ is of order $p$ or $x_1=e$.
+    Finally, since $|X|$ is a multiple of $p$, the class equation says there must be at least $p$
+    elements of with an orbit of size $1$, hence $p-1$ elements of order $p$.
 \end{proof}
 
 \begin{theorem}
@@ -122,6 +118,117 @@
 \begin{proof}
     Tedious rule checking.
 \end{proof}
+
+\begin{theorem}
+    A group $H\subseteq G$ is normal if and only if $gHg^{-1}\subseteq H$ for all $g\in G$.
+\end{theorem}
+
+\begin{proof}
+    The ``only if'' is trivial, so we prove the ``if'' direction by showing $gHg^{-1}\supseteq H$.
+    We see $gHg^{-1}\subseteq H\implies g^{-1}Hg\subseteq H$.
+    For some $ghg^{-1}\in H$, we have $ghg^{-1}=h^\prime\iff h=g^{-1}h^\prime g$ for some
+    $h^\prime\in H$.
+    But then $g^{-1}h^\prime g\in g^{-1}Hg$ so $h=gh^\prime g\in H$.
+\end{proof}
+
+\begin{theorem}
+    Subgroups of index 2 are normal.
+\end{theorem}
+
+\begin{proof}
+    Let $H\subseteq G$ be a subgroup of index 2.
+    Then, the left cosets of $H$ are $H,gH$ and the right cosets of $H$ are $H,Hg$, so $gH=Hg$.
+\end{proof}
+
+\begin{theorem}[First Isomorphism]
+    Let $\phi:G\to H$ be a surjective homomorphism.
+    Then, $H\cong G/\ker(\phi)$.
+\end{theorem}
+
+\begin{proof}
+    Tedious rule checking.
+\end{proof}
+
+\begin{corollary}
+    Let $\phi:G\to H$ be a homomorphism.
+    Cosets of $\ker(\phi)$ contain all values mapping to some element in the codomain.
+\end{corollary}
+
+\begin{remark}
+    Normal subgroups of a group are exactly all possible kernels of homomorphisms from that group.
+\end{remark}
+
+
+\section{Alternating Groups}
+
+
+\begin{definition}
+    A \textbf{transposition} in a symmetric group is a cycle with support size 2.
+\end{definition}
+
+\begin{remark}
+    Every permutation can be written (not uniquely) as a product of transpositions.
+\end{remark}
+
+\begin{theorem}
+    For some permutation $\sigma$, any writing of $\sigma$ as a product of transpositions has the
+    same parity of the number of factors.
+\end{theorem}
+
+% TODO
+
+\begin{remark}
+    The parity of a permutation $\sigma$ is the number of transpositions in a 2-cycle factorization
+    of $\sigma$.
+\end{remark}
+
+\begin{definition}
+    The \textbf{alternating group} on $n$ elements, $A_n$, is the set of even permutations.
+\end{definition}
+
+\begin{definition}
+    The \textbf{cycle structure} of a permutation $\sigma$ is the list of cycle lengths in $\sigma$
+    sorted in non-increasing order.
+\end{definition}
+
+\begin{theorem}[Conjugation]
+    Every conjugate of a permutation has the same cycle structure.
+\end{theorem}
+
+% TODO
+
+\begin{theorem}
+    Every pair of permutations of the same cycle structure is conjugates in $S_n$.
+\end{theorem}
+
+\begin{definition}
+    A group is \textbf{simple} if the only normal subgroups are the trivial group or itself.
+\end{definition}
+
+\begin{theorem}
+    The group $A_n$ is normal if and only if $n\neq 4$.
+\end{theorem}
+
+% TODO
+
+
+\section{Sylow Theorems}
+
+
+\begin{definition}
+    For prime $p$, a \textbf{$p$-group} is one which only contains elements of order a power of
+    $p$.
+\end{definition}
+
+\begin{theorem}
+    A finite group is a $p$-group if and only if it is of order a power of $p$.
+\end{theorem}
+
+\begin{theorem}
+    Let $G$ be an abelian group with $|G|=p^nm$ where $\gcd(p,m)=1$.
+    Defining $P$ as all elements of order a power of $p$ and $M$ as all other elements, we see
+    $G\cong P\times M$.
+\end{theorem}
 
 
 \end{document}
