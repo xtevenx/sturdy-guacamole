@@ -7,30 +7,24 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
-\usepackage{enumitem}
-\usepackage{fontspec}
-\usepackage{geometry}
-\usepackage{unicode-math}
-\usepackage{xcolor}
 
+\usepackage{fontspec}
+\usepackage{unicode-math}
 \setmainfont{STIX Two Text}
 \setmathfont{STIX Two Math}
 
-\usepackage{hyperref}
-
-\title{Algebra III: Groups}
-\subtitle{MATH 341}
-\author{Steven Xia}
-
-\changefontsizes{10pt}
-
+\usepackage{geometry}
 \geometry{paperheight=183.5mm, paperwidth=100mm, margin=2mm}
 
-\linespread{1.236}
-
+\usepackage{xcolor}
 \definecolor{GithubSidebar}{HTML}{0d1117}
 \pagecolor{GithubSidebar}
 \color{white}
+
+\usepackage{enumitem}
+\setlist[enumerate,1]{label={(\roman*)}}
+
+\usepackage{hyperref}
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
@@ -42,7 +36,12 @@
 \theoremstyle{remark}
 \newtheorem{remark}{Remark}[section]
 
-\setlist[enumerate,1]{label={(\roman*)}}
+\title{Algebra III: Groups}
+\subtitle{MATH 341}
+\author{Steven Xia}
+
+\changefontsizes{10pt}
+\linespread{1.236}
 
 \begin{document}
 \maketitle
@@ -51,12 +50,10 @@
 
 \section{Assorted Introductions}
 
-
 \begin{center}
     \textbf{Author's Remark}\\
-    This section is weird because most of the material was already covered either in MATH 340 or
-    MATH 440.
-    There is missing material, and I am simply too lazy to add it.
+    This section is weird because most of the material was already covered either in MATH 340 or MATH 440.
+    That it to say, there is material that I am too lazy to add.
 \end{center}
 
 \begin{theorem}[Internal Characterization]
@@ -87,8 +84,8 @@
 \end{theorem}
 
 \begin{proof}
-    We prove only for the finite case, by seeing that cosets partition the group, and that all
-    cosets are of the same size.
+    We prove only for the finite case, by seeing that cosets partition the group, and that all cosets are of the same
+    size.
 \end{proof}
 
 \begin{theorem}[Cauchy]
@@ -97,17 +94,17 @@
 \end{theorem}
 
 \begin{proof}
-    Define $X=\{(x_1,\dots,x_p)\in G^p:x_1\cdots x_p=e\}$ and see that $x_p$ is determined entirely
-    by the choices of $x_1,\dots,x_{p-1}$.
+    Define $X=\{(x_1,\dots,x_p)\in G^p:x_1\cdots x_p=e\}$ and see that $x_p$ is determined entirely by the choices of
+    $x_1,\dots,x_{p-1}$.
     Since $x_1,\dots,x_{p-1}$ can be chosen arbitrarily, $|X|=n^{p-1}$.
 
     Let $\mathbb{Z}_p$ act on $X$ by cyclic permutation of the $p$-tuple.
-    Since stabilizers are subgroups, the orbit-stabilizer theorem says that all orbits of $X$ are
-    size either $1$ or $p$.
-    We note an orbit of some $(x_1,\dots,x_p)\in X$ is size $1$ if and only if $x_1=\dots=x_p$, id
-    est, $x_1$ is of order $p$ or $x_1=e$.
-    Finally, since $|X|$ is a multiple of $p$, the class equation says there must be at least $p$
-    elements of with an orbit of size $1$, hence $p-1$ elements of order $p$.
+    Since stabilizers are subgroups, the orbit-stabilizer theorem says that all orbits of $X$ are size either $1$ or
+    $p$.
+    We note an orbit of some $(x_1,\dots,x_p)\in X$ is size $1$ if and only if $x_1=\dots=x_p$, id est, $x_1$ is of
+    order $p$ or $x_1=e$.
+    Finally, since $|X|$ is a multiple of $p$, the class equation says there must be at least $p$ elements of with an
+    orbit of size $1$, hence $p-1$ elements of order $p$.
 \end{proof}
 
 \begin{theorem}
@@ -126,8 +123,7 @@
 \begin{proof}
     The ``only if'' is trivial, so we prove the ``if'' direction by showing $gHg^{-1}\supseteq H$.
     We see $gHg^{-1}\subseteq H\implies g^{-1}Hg\subseteq H$.
-    For some $ghg^{-1}\in H$, we have $ghg^{-1}=h^\prime\iff h=g^{-1}h^\prime g$ for some
-    $h^\prime\in H$.
+    For some $ghg^{-1}\in H$, we have $ghg^{-1}=h^\prime\iff h=g^{-1}h^\prime g$ for some $h^\prime\in H$.
     But then $g^{-1}h^\prime g\in g^{-1}Hg$ so $h=gh^\prime g\in H$.
 \end{proof}
 
@@ -161,7 +157,6 @@
 
 \section{Alternating Groups}
 
-
 \begin{definition}
     A \textbf{transposition} in a symmetric group is a cycle with support size 2.
 \end{definition}
@@ -171,15 +166,17 @@
 \end{remark}
 
 \begin{theorem}
-    For some permutation $\sigma$, any writing of $\sigma$ as a product of transpositions has the
-    same parity of the number of factors.
+    For some permutation $\sigma$, all writings of $\sigma$ as a product of transpositions has the same parity of the
+    number of factors.
 \end{theorem}
 
-% TODO
+\begin{proof}
+    Let $S_n$ act on $f=\prod_{i<j}(x_i-x_j)\in F[x_1,\dots,x_n]$ by permuting the $x$'s, and see that every
+    transposition negates $f$.
+\end{proof}
 
 \begin{remark}
-    The parity of a permutation $\sigma$ is the number of transpositions in a 2-cycle factorization
-    of $\sigma$.
+    The parity of a permutation $\sigma$ is the number of transpositions in a 2-cycle factorization of $\sigma$.
 \end{remark}
 
 \begin{definition}
@@ -187,15 +184,17 @@
 \end{definition}
 
 \begin{definition}
-    The \textbf{cycle structure} of a permutation $\sigma$ is the list of cycle lengths in $\sigma$
-    sorted in non-increasing order.
+    The \textbf{cycle structure} of a permutation $\sigma$ is the list of cycle lengths in $\sigma$ sorted in
+    non-increasing order.
 \end{definition}
 
 \begin{theorem}[Conjugation]
     Every conjugate of a permutation has the same cycle structure.
 \end{theorem}
 
-% TODO
+\begin{proof}
+    Let $\alpha\in S_n$ and see $\alpha(a_1\cdots a_k)\alpha^{-1}=(\alpha(a_1)\cdots\alpha(a_k))$.
+\end{proof}
 
 \begin{theorem}
     Every pair of permutations of the same cycle structure is conjugates in $S_n$.
@@ -206,18 +205,21 @@
 \end{definition}
 
 \begin{theorem}
-    The group $A_n$ is normal if and only if $n\neq 4$.
+    The group $A_n$ is simple if and only if $n\neq 4$.
 \end{theorem}
 
-% TODO
+\begin{proof}[Proof sketch]
+    Let $H\subseteq A_n$ be proper normal, and choose $\alpha\in H$ of minimal support.
+    Claim $\alpha$ must be a cycle of length 3, so normality forces $H$ to have all cycles of length 3, which generates
+    $A_4$.
+\end{proof}
 
 
 \section{Sylow Theorems}
 
 
 \begin{definition}
-    For prime $p$, a \textbf{$p$-group} is one which only contains elements of order a power of
-    $p$.
+    For prime $p$, a \textbf{$p$-group} is one which only contains elements of order a power of $p$.
 \end{definition}
 
 \begin{theorem}
@@ -226,8 +228,7 @@
 
 \begin{theorem}
     Let $G$ be an abelian group with $|G|=p^nm$ where $\gcd(p,m)=1$.
-    Defining $P$ as all elements of order a power of $p$ and $M$ as all other elements, we see
-    $G\cong P\times M$.
+    Defining $P$ as all elements of order a power of $p$ and $M$ as all other elements, we see $G\cong P\times M$.
 \end{theorem}
 
 
