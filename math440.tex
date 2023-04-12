@@ -7,29 +7,25 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
+
 \usepackage{enumitem}
+\setlist[enumerate,1]{label={(\roman*)}}
+
 \usepackage{fontspec}
-\usepackage{geometry}
-\usepackage{xcolor}
-
-\usepackage{hyperref}
-
 \usepackage{unicode-math}
 \setmainfont{TeX Gyre Termes}
 \setmathfont{STIX Two Math}
 
-\geometry{paperheight=183.5mm, paperwidth=100mm, margin=2mm}
+\usepackage{geometry}
+\geometry{letterpaper, margin=1in}
 
-\changefontsizes{10pt}
+\usepackage{hyperref}
+
 \linespread{1.236}
 
 \title{Galois Theory}
 \subtitle{MATH 440}
 \author{Steven Xia}
-
-\definecolor{GithubSidebar}{HTML}{0d1117}
-\pagecolor{GithubSidebar}
-\color{white}
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
@@ -48,457 +44,148 @@
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\Z}{\mathbb{Z}}
 
-\renewcommand{\gcd}[1]{\textup{gcd}(#1)}
-\newcommand{\lcm}[1]{\textup{lcm}(#1)}
-\newcommand{\ord}[1]{\textup{ord}(#1)}
-
-\setlist[enumerate,1]{label={(\roman*)}}
 
 \begin{document}
 
 \maketitle
 
-\begin{minipage}{\textwidth} % Somehow makes this look better.
 \begin{quote} 
-    \center{\itshape Galois Theory is the study of symmetries among roots of polynomials.}
+    \center{\itshape Galois Theory studies symmetries among roots of polynomials.}
     \flushright{\small --- Professor (Spring 2023)}
 \end{quote}
-\end{minipage}
 
 \tableofcontents
 
 
-\section{Exploration of Fields}
-
-\begin{definition}
-    The \textbf{degree} of $K$ over $L$ is written $[K:L]$.
-\end{definition}
+\section{Field Extensions}
 
 \begin{theorem}
-    Let $F\subseteq K$ and $K\subseteq L$ be field extensions.
-    Then, $[L:F]=[L:K][K:F]$.
+    \label{thm:field extension degrees multiply}
+    If $F\to K$ and $K\to L$ are finite, then $[L:F]=[L:K][K:L]$.
 \end{theorem}
 
 \begin{proof}
-    We may assume $[L:K]$ and $[K:F]$ are finite.
-    Then, $L$ has $K$-basis $\{a_1,\dots,a_k\}$ and $K$ has $F$-basis $\{b_1,\dots,b_f\}$.
-    We can show $\{a_ib_j\}$ is an $F$-basis of $L$.
+    Let $\{\alpha_1,\dots,\alpha_n\}$ and $\{\beta_1,\dots,\beta_m\}$ be bases for $F\to K$ and $K\to L$
+    respectively.
+    We claim $S=\{\alpha_i\beta_j\}$ is an $F$-basis for $L$.
+    It is immediate that $S$ spans $L$, so we show that $S$ is linearly independent.
+
+    Suppose some linear combination of $S$ is zero, then factoring out by the $\alpha_i$ implies the coefficients of
+    each group of $\alpha_i$ must be zero, but they are all linear combinations of the $\beta_j$, hence all
+    coefficients must be zero.
 \end{proof}
 
-\begin{definition}
-    A field extension $F\subseteq K$ is \textbf{finite} if the degree of $K$
-    over $F$ is finite.
-\end{definition}
-
-\begin{definition}
-    A field extension $F\subseteq K$ is \textbf{finitely generated} if there
-    exists a finite set $S$ such that $F(S)=K$.
-\end{definition}
-
-\begin{remark}
-    \label{thm: finite implies finitely generated}
-    A $F\subseteq K$ is finitely generated if it is finite.
-\end{remark}
-
-\begin{definition}
-    For $F\subseteq K$, some $\alpha\in K$ is \textbf{algebraic} over $F$ if
-    there exists a non-constant $f\in F[x]$ such that $f(\alpha)=0$.
-\end{definition}
-
-\begin{definition}
-    The minimal polynoimial of $\alpha$ over $F$ is written $m_{\alpha,F}(\alpha)=0$.
-    Then, the degree of $\alpha$ over $F$ is $\deg(m_{\alpha,F})$.
-\end{definition}
-
-\begin{definition}
-    A $F\subseteq K$ is an algebraic field extension if every $\alpha\in K$ is algebraic.
-\end{definition}
-
 \begin{theorem}
-    A $F\subseteq K$ is finite if and only if it is finitely generated and algebraic.
+    A field extension is finite if and only if it is algebraic and finitely generated.
 \end{theorem}
 
 \begin{proof}
-    Suppose $F\subseteq K$ is finite.
-    We will show $K$ is algebraic over $F$ (finitely generated follows from
-    Theorem \ref{thm: finite implies finitely generated}).
-    Let $\alpha\in K$ be nonzero and see that $\alpha^0,\dots,\alpha^m\in K$ is
-    linearly dependent if $m\geq\deg(m_{\alpha,F})=[K:F]$.
+    Suppose $F\to K$ is a field extension.
+    It is trivial to show that
+    \begin{enumerate}
+        \item if $F\to K$ is not algebraic, then it is not finite, and
+        \item if $F\to K$ is not finitely generated, then it is not finite.
+    \end{enumerate}
 
-    Now, suppose $K=F(\alpha_1,\dots,\alpha_m)$ is algebraic and define
-    $K_i=K_{i-1}(\alpha_i)$ with $K_0=F$.
-    By an implicit induction on $i$, we see that $K_m=K$ is finite.
+    Suppose $F\to K$ is algebraic and finitely generated, and let $\{\alpha_1,\dots,\alpha_n\}$ be a basis for
+    $F\to K$.
+    Break the extension down by $F\to F(\alpha_1)\to F(\alpha_1,\alpha_2)\to\dots\to F(\alpha_1,\dots,\alpha_n)=K$, and
+    see that each of these intermediate extensions are finite.
+    Theorem $\ref{thm:field extension degrees multiply}$ asserts $F\to K$ is finite.
 \end{proof}
 
 \begin{corollary}
-    Finite composition of algebraic and finitely generated field extensions
-    are also finite.
+    Every composition of algebraic field extensions is algebraic.
 \end{corollary}
 
-\begin{definition}
-    A field $F$ is \textbf{algebraically closed} if every non-constant
-    $f\in F[x]$ has a root in $F$.
-\end{definition}
-
-\begin{remark}
-    If $F$ is algebraically closed, every $f\in F[x]$ can be written as a
-    product of linear factors.
-\end{remark}
-
-\begin{theorem}
-    A field $F$ is algebraically closed if and only if every field extension
-    $K$ of $F$ satisfies $[K:F]=1$.
-\end{theorem}
-
 \begin{proof}
-    Assume $F$ is algebraically closed.
-    Then, the minimal polynomial of every element over $F$ is linear, so any
-    field extension over $F$ is of degree one.
-
-    Now suppose every algebraic extension is of degree one.
-    Consider some irreducible factor $f$ of a polynomial in $F[x]$ and the
-    algebraic extension $F\to F[x]/\langle f\rangle$.
-    Since the extension is of degree one, the degree of $f$ is also one.
+    Suppose $F\to K$ and $K\to L$ are algebraic.
+    Let $\alpha\in L$ with $m_{\alpha,K}=x^n+c_{n-1}x^{n-1}+\dots+c_0$, and construct $K^\prime=F(c_0,\dots,c_{n-1})$,
+    which is algebraic and finitely generated, hence finite.
+    But $K^\prime\to K^\prime(\alpha)$ is also finite, so $F\to K^\prime(\alpha)$ is finite, therefore $\alpha$ is
+    algebraic over $F$.
 \end{proof}
 
 \begin{theorem}[Kronecker]
-    Let $F$ be a field and $f\in F[x]$ be non-constant.
-    There exists a finite extension $F\subseteq K$ such that $f$ has a root in
+    \label{thm:kronecker}
+    If $F$ is a field and $f\in F[x]$ is non-constant, then there exists a finite $F\to K$ such that $f$ has a root in
     $K$.
 \end{theorem}
 
-\begin{definition}
-    An \textbf{algebraic closure} of a field $F$ is an algebraic extension
-    $F\subseteq K$ such that $K$ is algebraically closed.
-\end{definition}
-
-\begin{theorem}
-    Every field $F$ has an algebraic closure.
-\end{theorem}
-
 \begin{proof}
-    Define $S$ as the set of monic and irreducible polynomials in $F[x]$,
-    $R=F[y_f\mid f\in S]$, and $I=\langle f(y_f)\mid f\in S\rangle$.
-
-    We claim that $I$ is a proper ideal, that is, $1\notin I$.
-    Towards a contradiction, suppose $1\in I$.
-    Then, we can write $1=\sum a_if_i(y_{f_i})$ for $f_i\in S$ and $a_i\in R$.
-    However, repeating Kronecker's Theorem for each $f_i$ generates a field
-    extension for which there exist $\alpha_i$ such that $f_i(\alpha_i)=0$ for
-    all $i$, so we can plug these values into the sum to give $1=0$, a
-    contradiction.
-
-    Since every proper ideal is contained in a maximal ideal, there exists some
-    $M\subseteq R$ such that $I\subseteq M$.
-    Then, we define $F\subseteq K$ where $K=R/M$ as an algebraic field
-    extension of $F$ generated by the $y_f$.
-    Since $K$ contains a root to every irreducible polynomial, we conclude that
-    it is an algebraic closure of $F$.
+    Without loss of generality, we may assume $f$ is irreducible.
+    Define $K=F[x]/\langle f\rangle$, which is a field because $\langle f\rangle$ is maximal.
+    See that $x+\langle f\rangle\in K$ is a root of $f$.
 \end{proof}
 
 \begin{theorem}
-    All algebraic closures of a field are isomorphic.
-\end{theorem}
-
-\begin{definition}
-    A \textbf{symmetric polynomial} $p\in F[x_1,\dots,x_n]$ satisfies
-    $p(x_1,\dots,x_n)=p(x_{\sigma(1)},\dots,x_{\sigma(n)})$ for all
-    $\sigma\in S_n$.
-\end{definition}
-
-\begin{definition}
-    The elementary symmetric polynomials in $n$ variables are written $e_i$ for
-    $1\leq i\leq n$ and are the sum of the $i$th degree monomials in the
-    expansion of $\prod_{j=1}^n(1+x_j)$.
-\end{definition}
-
-\begin{theorem}[Symmetric Polynomials]
-    All symmetric polynomials can be uniquely written as a polynomial in the
-    elementary symmetric polynomials.
-\end{theorem}
-
-\begin{definition}
-    The descriminant of a polynomial $f$ with roots $\alpha_1,\dots,\alpha_n$
-    is $\Delta(f)=\prod_{i<j}(\alpha_i-\alpha_j)^2$.
-\end{definition}
-
-\begin{remark}
-    The \textbf{discriminant} of $f$ is a symmetric polynomial in its roots,
-    and the elementary symmetric polynomials are (up to negation) the
-    coefficients of $f$.
-\end{remark}
-
-\begin{theorem}[Algebra]
-    Every non-constant polynomial with complex coefficients has at least one
-    complex root.
-\end{theorem}
-
-
-\section{Groups and Actions}
-
-
-\begin{definition}
-    The \textbf{automorphism group} of $K$, denoted $Aut(K)$, is the set of
-    automorphisms of $K$.
-\end{definition}
-
-\begin{definition}
-    The \textbf{Galois group} of a field extension $F\subseteq K$, denoted
-    $Gal(K/F)$, is the set of automorphisms of $K$ such that $F$ is fixed
-    pointwise.
-\end{definition}
-
-\begin{definition}
-    A \textbf{left action} of a group $G$ on a set $X$ is a map
-    $G\times X\to X$ written $(g,x)\mapsto g.x$ such that $e\in G$ satisfies
-    $e.x=x$ for all $x$ and $g.(h.x)=(gh).x$ for all $g,h\in G$.
-\end{definition}
-
-\begin{definition}
-    The \textbf{standard left action} of $H\leq G$ on $G$ is the left action
-    defined $(h,g)\mapsto hg$.
-\end{definition}
-
-\begin{definition}
-    The \textbf{conjugation action} of $H\leq G$ on $G$ is the left action
-    defined $(h,g)\mapsto hgh^{-1}$.
-\end{definition}
-
-\begin{definition}
-    The \textbf{orbit} of $x\in X$ under group action $G$ is defined
-    $G.x=\{g.x:g\in G\}$.
-\end{definition}
-
-\begin{theorem}
-    The orbits under an action form a partition.
-\end{theorem}
-
-% \begin{proof}
-%     Let $G$ act on $X$.
-%     Suppose $y\in G.x$ by $y=g.x$ where $g\in G$ and $x,y\in X$.
-%     Then, $h.x=h.(g^{-1}.y)$ for all $h\in G$.
-% \end{proof}
-
-\begin{definition}
-    The \textbf{stabilizers} of $x\in X$ under group action $G$ is defined
-    $G_x=\{g\in G:g.x=x\}$.
-\end{definition}
-
-\begin{theorem}
-    \label{thm:stabilizers are groups}
-    Every stabilizer forms a group.
-\end{theorem}
-
-\begin{definition}
-    For groups $H\leq G$ and $g\in G$, a \textbf{left coset} of $H$ in $G$ is
-    defined $gH=\{gh:h\in H\}$.
-    We write $G/H$ to denote the set of left cosets of $H$ in $G$.
-\end{definition}
-
-\begin{definition}
-    The \textbf{index} of $H$ in $G$ is the number of left cosets of $H$ in
-    $G$.
-    We write $[G:H]$ to denote this value.
-\end{definition}
-
-\begin{theorem}[Orbit-stabilizer]
-    Let $H\leq G$ be groups.
-    For all $x\in G$, there is a bijection $G.x\to G/G_x$.
+    A field $F$ is algebraically closed if and only if every algebraic $F\to K$ has $[K:F]=1$.
 \end{theorem}
 
 \begin{proof}
-    Define $\phi:G\to G.x$ where $\phi(g)=g.x$, a surjective map.
-    We see $\phi(g)=\phi(h)\iff g.x=h.x\iff g^{-1}h\in G_x\iff
-    g^{-1}hG_x=G_x\iff hG_x=gG_x$, so $gG_x\mapsto g.x$ is bijective.
+    The ``only if'' is trivial, so suppose every $F\to K$ has $[K:F]=1$.
+    Let $f\in F[x]$, and Theorem \ref{thm:kronecker} asserts there exists a finite $F\to K$ in which $f$ has a root.
+    But $[K:F]=1$, so this root is in fact in $F$.
 \end{proof}
 
-\begin{theorem}[Lagrange]
-    For $H\leq G$, $|G|=[G:H]|H|$.
-\end{theorem}
-
-\begin{definition}
-    Orbits under a conjugation action $H\leq G$ are called
-    \textbf{conjugacy classes} under conjugation by $H$.
-\end{definition}
-
-\begin{definition}
-    The \textbf{center} of a group $G$ is defined
-    $Z(G)=\{z\in G:\forall g\in G, gz=zg\}$.
-\end{definition}
-
-\begin{theorem}[Class Equation]
-    For a finite group $G$, $|G|=Z(G)+\sum_{H\in O}[G:H]$ for $O$ the set of
-    all conjugacy classes disjoint from the center of $G$.
-\end{theorem}
-
-\begin{definition}
-    A \textbf{normal subgroup} $H\leq G$ is one which satisfies $gHg^{-1}=H$
-    for all $g\in G$.
-    We then denote $H\trianglelefteq G$.
-\end{definition}
-
-\begin{remark}
-    A subgroup $H\leq G$ is normal if and only if $ghg^{-1}\in H$ for all
-    $h\in H$ and $g\in G$.
-\end{remark}
-
 \begin{theorem}
-    The quotient by a normal subgroup is a group.
+    Every field has an algebraic closure.
 \end{theorem}
 
-\begin{theorem}
-    The normal subgroups of $G$ are exactly those which arise as kernels of
-    group homomorphisms from $G$.
-\end{theorem}
+\begin{proof}
+    Suppose $F$ is a field, and define $S$ to be the set of monic and irreducible polynomials in $F[x]$.
+    Also construct $R=F[y_f\mid f\in S]$ and $I=\langle f(y_f)\mid f\in S\rangle$.
 
-\begin{theorem}[Group Isomorphism]
-    For $\phi:G\to H$ a surjective group homomorphism, $G/\ker\phi$ and $H$ are
-    isomorphic.
-\end{theorem}
+    We claim $1\notin I$.
+    Towards a contradiction, suppose $1\in I$, so we can write $1=\sum_ia_if_i(y_{f_i})$ for $a_i\in R$ and $f_i\in S$.
+    Repeating Theorem \ref{thm:kronecker} for each $f_i$ generates a field extension in which there exist $\alpha_i$
+    such that $f_i(\alpha_i)=0$ for all $i$, but now we have $1=\sum_ia_if_i(\alpha_i)=0$, a contradiction.
 
-\begin{remark}
-    A group action $\rho:G\times X\to X$ can be viewed as a group homomorphism
-    $\phi:G\to S_X$, where $g\in G$ is mapped to the permutation of $X$ that
-    its associated action does.
-\end{remark}
-
-\begin{theorem}[Cayley]
-    Every finite group of order $n$ is isomorphic to a subgroup of $S_n$.
-\end{theorem}
-
-
-\section{Back to Fields}
-
-\begin{definition}
-    Let $F$ be a field and $S\subseteq F[x]$.
-    A \textbf{splitting field} of $S$ is an extension $F\to K$ where every $f\in S$ splits into
-    linear factors.
-\end{definition}
+    Now we know $I$ is a proper ideal, so it is contained in some maximal ideal $M$.
+    Define $F\to K=R/M$, and see that $y_i+\langle M\rangle\in K$ is a root of $f_i$, so we conclude that $K$ is an
+    algebraic closure of $F$.
+\end{proof}
 
 \begin{theorem}[Isomorphism Extension]
-    Let $F$ be a field and $K,K^\prime$ be isomorphic field extensions of $F$.
-    If $K\to L\subseteq\overline{K}$, there exists an extension from $K^\prime$ to $L$.
+    Let $F$ and $K$ be fields with isomorphism $\phi:F\to K$.
+    If $F\to E$ is algebraic, then there exists an isomorphism $\psi$ between $E$ and a subfield of $\overline{K}$
+    satisfying $\psi\vert_F=\phi$.
 \end{theorem}
 
-\begin{definition}
-    A field extension $F\to K$ is \textbf{normal} if the minimal polynomial of every $\alpha\in K$
-    splits in $K[x]$.
-\end{definition}
-
-\begin{theorem}
-    Let $F\to K\subseteq\overline{F}$ be an algebraic extension.
-    The following are equivalent statements:
+\begin{proof}
+    Let $S$ be the set of $(E^\prime,\sigma)$ where $E^\prime$ is a field satisfying $F\subseteq E^\prime\subseteq E$
+    and $\sigma$ an isomorphism from $E^\prime$ to a subfield of $\overline{K}$ satisfying $\sigma\vert_F=\phi$.
+    Define a partial order on $S$ by $(E_1,\sigma_1)\leq (E_2,\sigma_2)$ if and only if $E_1\subseteq E_2$ and
+    $\sigma_2\vert_{E_1}=\sigma_1$.
+    We wish to apply Zorn's Lemma to $S$, so we note
     \begin{enumerate}
-        \item $K$ is a splitting field,
-        \item every $K\to\overline{F}$ fixing $F$ induces an automorphism of $K$, and
-        \item $K$ is a normal extension.
+        \item that $(F,\phi)\in S$ implies $S$ is non-empty, and
+
+        \item
+            that every chain $(E_1,\sigma_1)\leq(E_2,\sigma_2)\leq\dots$ in $S$ is bounded above by
+            $(E^\prime,\sigma)$, where $E^\prime=\bigcup_iE_i$ and $\sigma$ is defined by simply using whichever
+            $\sigma_i$ is available, since they are all compatible.
     \end{enumerate}
-\end{theorem}
+    Therefore, there exists a maximal element $(M,\tau)\in S$, and we want to show $M=E$.
+    Towards a contradiction, suppose $M\subsetneq E$ and choose $\alpha\in E\setminus M$ with minimal polynomial
+    $m_{\alpha,M}=x^n+c_{n-1}x^{n-1}+\dots+c_0\in M[x]$.
+    Define $L=\tau(M)$ and $f(x)=x^n+\tau(c_{n-1})x^{n-1}+\dots+\tau(c_0)\in L[x]$, and see that
+    \[M(\alpha)\to M[x]/m_{\alpha,M}\to L[x]/f(x)\to L(\beta)\]
+    is an isomorphism for $\beta\in\overline{L}=\overline{K}$ a root of $f(x)$.
+    Moreover, this extends $\tau$, a contradiction.
+\end{proof}
 
 \begin{theorem}
-    Let $F$ be a field and $S\subseteq F[x]$.
-    All splitting fields of $S$ over $F$ are isomorphic.
+    If $F$ is a field, then all algebraic closures of $F$ are pairwise isomorphic.
 \end{theorem}
 
-\begin{remark}
-    Let $F\to\{K,K^\prime\}\to L$ be field extensions.
-    We see $F\to KK^\prime$ is normal if $F\to K$ and $F\to K^\prime$ are normal.
-\end{remark}
-
-\begin{remark}
-    Let $F\to K\to L$ be field extensions.
-    We see $K\to L$ is normal if $F\to L$ is normal.
-\end{remark}
-
-\begin{definition}
-    Let $F\to K$ be a normal extension.
-    The \textbf{normal closure} of $K$ over $F$ is the subfield of $\overline{F}$ generated by all
-    $\sigma(K)$ where $\sigma:K\to\overline{F}$ fixes $F$.
-\end{definition}
-
-\begin{remark}
-    The normal closure of $F\to K$ is the smallest normal extension of $F$ containing $K$.
-\end{remark}
-
-\begin{definition}
-    Let $F\to K$ be an algebraic field extension.
-    Define the \textbf{separable degree} of $K$ over $F$ as the number of $\sigma:K\to\overline{F}$
-    fixing $F$, and is denoted $[K:F]_S$.
-\end{definition}
-
-\begin{lemma}
-    Let $F\to K$ be an algebraic extension, and $\phi:F\to F^\prime\subseteq\overline{F}$.
-    We can define $[K:F]_S$ as the number of $\sigma:K\to\overline{F}$ where $\sigma=\phi$ over $F$.
-\end{lemma}
-
-\begin{theorem}
-    Let $F\to K\to L$ be algebraic field extensions, then $[L:F]_S=[L:K]_S[K:F]_S$.
+\begin{theorem}[Symmetric Polynomials]
+    Every symmetric polynomial can be written uniquely as a polynomial in the elementary symmetric polynomials.
 \end{theorem}
 
-\begin{theorem}
-    Let $F\to K$ be algebraic, then $[K:F]\geq [K:F]_S$.
+\begin{theorem}[Algebra]
+    The set of complex numbers is algebraically closed.
 \end{theorem}
-
-\begin{definition}
-    Let $F\to K$ be a finite field extension.
-    It is said to be \textbf{separable} if $[K:F]=[K:F]_S$.
-\end{definition}
-
-\begin{theorem}
-    Let $F\to K$ be finite, normal, and separable.
-    Then, $\#\textup{Gal}(K/F)=[K:F]$.
-\end{theorem}
-
-\begin{definition}
-    Let $F\to K\subseteq\overline{F}$.
-    Then, $\alpha\in K$ is \textbf{separable} over $F$ if $F\to F(\alpha)$ is separable, that is,
-    $m_{\alpha,F}$ has no multiple roots.
-\end{definition}
-
-\begin{theorem}
-    Let $F\to K$ be finite.
-    Then, $F\to K$ is separable if and only if every $\alpha\in K$ is separable over $F$.
-\end{theorem}
-
-\begin{remark}
-    Let $F\to K$ where be in characteristic $0$.
-    Then, every $\alpha\in K$ is separable over $F$, so $F\to K$ is separable.
-\end{remark}
-
-\begin{theorem}[Primitive Element]
-    Let $F\to K$ be finite and separable.
-    Then, there exists $\alpha\in K$ where $K=F(\alpha)$.
-\end{theorem}
-
-\begin{theorem}
-    A finite field of order $p^n$ is the splitting field of $x^{p^n}-x$.
-\end{theorem}
-
-\begin{corollary}
-    An extension of finite fields is normal and separable.
-\end{corollary}
-
-\begin{theorem}
-    There exists a finite field of order $p^n$.
-\end{theorem}
-
-\begin{definition}
-    For a finite field $F$ of characteristic $p$, define the \textbf{Frobenius endomorphism} to be
-    the map $\phi:F\to F$ where $a\mapsto a^p$.
-\end{definition}
-
-\begin{theorem}
-    The multiplicative group of a finite field is cyclic.
-\end{theorem}
-
-\begin{theorem}
-    Let $\phi$ be the Frobenius endomorphism in characteristic $p$.
-    Then, $\langle\phi\rangle=\textup{Gal}(\F_{p^n}/\F_p)\cong\mathbb{Z}_n$.
-\end{theorem}
-
-\begin{remark}
-    The subfield $\F_{p^k}\subseteq\F_{p^n}$ exists if and only if $k\mid n$.
-\end{remark}
 
 
 \end{document}
