@@ -29,7 +29,6 @@
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
-\newtheorem{subdefinition}{Definition}[definition]
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
@@ -57,6 +56,16 @@
 \tableofcontents
 
 
+\section{Author's Notes}
+
+\begin{itemize}[leftmargin=*]
+    \item
+        The following theorems are sometimes assumed:
+        Theorem \ref{thm:field extension degrees multiply},
+        Theorem \ref{thm:field extension separable degrees multiply}.
+\end{itemize}
+
+
 \section{Field Extensions}
 
 \begin{theorem}
@@ -76,6 +85,7 @@
 \end{proof}
 
 \begin{theorem}
+    \label{thm:finite iff algebraic and finitely generated}
     A field extension is finite if and only if it is algebraic and finitely generated.
 \end{theorem}
 
@@ -203,6 +213,8 @@
     \begin{enumerate}
         \item that $K$ is a splitting field,
         \item that every $\phi:K\to\overline{F}$ fixing $F$ induces an isomorphism on $K$, or
+
+        % TODO: this property is just normality.
         \item that the minimal polynomial of every $\alpha\in K$ splits in $K[x]$.
     \end{enumerate}
 \end{theorem}
@@ -229,5 +241,89 @@
     $\alpha\in K$.
 \end{proof}
 
+
+\section{Seperable Extensions}
+
+\begin{lemma}
+    Suppose $\phi:F\to F^\prime$ is an isomorphism with $\overline{F}=\overline{F^\prime}$, and $F\to K$ is algebraic.
+    Then there is a bijection between $\{\psi:K\to\overline{F}\mid\psi\vert_F=\iota\}$ and
+    $\{\chi:K\to\overline{F}\mid\psi\vert_F=\phi\}$.
+\end{lemma}
+
+\begin{proof}
+    By Theorem \ref{thm:Isomorphism Extension}, there is an isomorphism $\sigma$ between $K$ and a subfield $K^\prime$
+    of $\overline{F}$ satisfying $\sigma\vert_F=\phi$.
+    See that there is a bijection from $\{\psi:K\to\overline{F}\mid\psi\vert_F=\iota\}$ to
+    $\{\tau:K^\prime\to\overline{F}\mid\tau\vert_{F^\prime}=\iota\}$ by applying $\sigma$ to $K$.
+\end{proof}
+
+\begin{theorem}
+    \label{thm:field extension separable degrees multiply}
+    If $F\to K$ and $K\to L$ are finite and algebraic, then $[L:F]_s=[L:K]_s[K:F]_s$.
+\end{theorem}
+
+\begin{proof}
+    % TODO: double check this.
+    Define $S=\{\phi:L\to\overline{F}\mid\phi\vert_F=\iota\}$ and $T=\{\psi:K\to\overline{F}\mid\psi\vert_F=\iota\}$,
+    and see that
+    \[[L:F]_s=\lvert S\rvert=\sum_{\psi\in T}\#\{\chi:L\to\overline{F}\mid\chi\vert_K=\psi\}=\sum_{\psi\in T}[L:K]_s=[K:F]_s[L:K]_s\text{.}\]
+\end{proof}
+
+\begin{theorem}
+    \label{thm:separable degree at most degree}
+    If $F\to K$ is finite and algebraic, then $[K:F]_s\leq [K:F]$.
+\end{theorem}
+
+\begin{proof}
+    From Theorem \ref{thm:field extension degrees multiply} and Theorem
+    \ref{thm:field extension separable degrees multiply}, we may assume $K=F(\alpha)$.
+    Since every $\phi:K\to\overline{F}$ contributing to $[K:F]_s$ is completely determined by its mapping of $\alpha$,
+    the number of such embeddings is the number of distinct roots of $m_{\alpha,F}$.
+    But this is at most the degree of $m_{\alpha,F}$, which is $[K:F]$.
+\end{proof}
+
+\begin{theorem}
+    If $F\to K$ is finite, then $F\to K$ is separable if and only if every $\alpha\in K$ is separable.
+\end{theorem}
+
+\begin{proof}
+    Suppose $F\to K$ is separable, let $\alpha\in K$, and Theorem \ref{thm:separable degree at most degree} asserts
+    that \[[K:F]_s=[K:F(\alpha)]_s[F(\alpha):F]_s\leq[K:F(\alpha)][F(\alpha):F]=[K:F]\text{.}\]
+    Separability implies $[K:F]_s=[K:F]$, so $m_{\alpha,F}$ has $[F(\alpha):F]_s=[F(\alpha):F]$ distinct roots.
+    
+    Now suppose every $\alpha\in K$ is separable.
+    By Theorem \ref{thm:finite iff algebraic and finitely generated}, we know $F\to K$ is algebraic and finitely
+    generated.
+    Since $[F(\alpha):F]_s=[F(\alpha):F]$ for every $\alpha\in K$, we can show $F\to K$ is separable by induction on
+    the number of generators of $K$, using Theorem \ref{thm:field extension degrees multiply} and Theorem
+    \ref{thm:field extension separable degrees multiply}.
+\end{proof}
+
+\begin{theorem}[Primitive Element]
+    If $F\to K$ is finite and separable, then $K=F(\alpha)$ for some $\alpha\in K$.
+\end{theorem}
+
+\begin{proof}
+    For now, we will only prove this for infinite fields $F$.
+    The case for finite fields follows from the multiplicative group of every finite field being cyclic.
+    % TODO: link to the finite proof after it's done.
+
+    From Theorem \ref{thm:finite iff algebraic and finitely generated}, it suffices to show separable
+    $F\to F(\alpha,\beta)$ implies that there exists a primitive element.
+    Fix $c\in F$ and let $\gamma=\alpha+c\beta$.
+    To show $\gamma$ is primitive, it suffices to show $\beta\in F(\gamma)$.
+    Instead, we will show that $\beta\notin F(\gamma)$ implies $c$ must equal an expression given in terms of roots of
+    $m_{\alpha,F}$ and $m_{\beta,F}$.
+    Since there are only a finite number of combinations of these roots, there then must exist $c$ for which $\gamma$
+    is primitive.
+
+    Suppose $\beta\notin F(\gamma)$, and see that $\beta$ is a root of both $m_{\beta,F}$ and $m_{\alpha,F}(\gamma-cx)$
+    in $F(\gamma)[x]$, so $m_{\beta,F(\gamma)}$ divides both $m_{\beta,F}$ and $m_{\alpha,F}(\gamma-cx)$.
+    Since $\beta\notin F(\gamma)$ implies $\deg(m_{\beta,F(\gamma)})\geq 2$, separability ensures we can choose a root
+    $\beta^\prime$ of $m_{\beta,F(\gamma)}$ satisfying $\beta^\prime\neq\beta$.
+    This gives that $\alpha^\prime=\gamma-c\beta^\prime\in\overline{F}$ is a root of $m_{\alpha,F}$, but we can now
+    plug in the original definition of $\gamma$ to see that
+    \[\alpha^\prime=\gamma-c\beta^\prime\iff\alpha^\prime=(\alpha+c\beta)-c\beta^\prime\iff c=\frac{\alpha^\prime-\alpha}{\beta-\beta^\prime}\text{.}\]
+\end{proof}
 
 \end{document}
