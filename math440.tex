@@ -38,9 +38,15 @@
 \theoremstyle{remark}
 \newtheorem{remark}{Remark}[section]
 
+\DeclareMathOperator{\Char}{char}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Orb}{Orb}
+
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathbb{N}}
 \newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
 \newcommand{\Z}{\mathbb{Z}}
 
 
@@ -60,9 +66,11 @@
 
 \begin{itemize}[leftmargin=*]
     \item
-        The following theorems are sometimes assumed:
+        The following are sometimes used without reference:
         Theorem \ref{thm:field extension degrees multiply},
         Theorem \ref{thm:field extension separable degrees multiply}.
+
+    \item Unless otherwise stated, assume $p$ denotes a prime number and $n$ denotes a natural number.
 \end{itemize}
 
 
@@ -300,6 +308,7 @@
 \end{proof}
 
 \begin{theorem}[Primitive Element]
+    \label{thm:Primitive Element}
     If $F\to K$ is finite and separable, then $K=F(\alpha)$ for some $\alpha\in K$.
 \end{theorem}
 
@@ -325,5 +334,102 @@
     plug in the original definition of $\gamma$ to see that
     \[\alpha^\prime=\gamma-c\beta^\prime\iff\alpha^\prime=(\alpha+c\beta)-c\beta^\prime\iff c=\frac{\alpha^\prime-\alpha}{\beta-\beta^\prime}\text{.}\]
 \end{proof}
+
+
+\section{Galois Correspondece}
+
+\begin{definition}
+    An algebraic extension $F\to K$ is \textit{Galois} if it is normal and algebraic.
+\end{definition}
+
+\begin{definition}
+    Let $F\subseteq K$ be a field extension with $H\leq\Gal(K/F)$.
+    The \textit{fixed field} of $K$ under $H$ is
+    \[K^H:=\{\alpha\in K\mid\forall\sigma\in H, \sigma(\alpha)=\alpha\}\text{.}\]
+\end{definition}
+
+\begin{theorem}[Galois Theory]
+    If $F\subseteq K$ is finite Galois, there is a bijection between subgroups of $G=\Gal(K/F)$ and subfields of
+    $K$ containing $F$ where $H\leq G\mapsto K^H$ and $L\subseteq K\mapsto \Gal(K/L)$.
+\end{theorem}
+
+\begin{proof}
+    Suppose $F\subseteq K^\prime\subseteq K$ and $G=\Gal(K/K^\prime)$.
+    We have $K^\prime\subseteq K^G$ by definition, so we show $K^G\subseteq K^\prime$.
+    Let $\alpha\in K\setminus K^\prime$, and separability ensures there exists a root $\beta$ of $m_{\alpha,K^\prime}$
+    satisfying $\beta\neq\alpha$.
+    Since there exists an isomorphism $\sigma:K^\prime(\alpha)\to K^\prime(\beta)$ where
+    $\sigma\vert_{K^\prime}=\iota$ and $\sigma(\alpha)=\beta$, we can use Theorem \ref{thm:Isomorphism Extension} to find
+    an isomorphism $\tau$ of $K$ where $\tau\vert_{K^\prime}=\sigma$.
+    But this $\tau\in G$ doesn't fix $\alpha$, so $\alpha\notin K^G$ and $K^G\subseteq K^\prime$.
+
+    Now suppose $H\leq G=\Gal(K/F)$.
+    It is immediate that $H\subseteq\Gal(K/K^H)$, so we show $\lvert\Gal(K/K^H)\rvert\leq\lvert H\rvert$.
+    By Theorem \ref{thm:Primitive Element}, choose $\alpha\in K$ such that $F(\alpha)=K$, define $S:=\Orb_H(\alpha)$,
+    and also $p(x):=\prod_{a\in S}(x-a)\in K[x]$.
+    We note that the coefficients of $p(x)$ are fixed by $H$, so in fact $p(x)\in K^H[x]$.
+    But now we know that $m_{\alpha,K^H}$ divides $p$, which gives
+    $\lvert\Gal(K/K^H)\rvert=[K:K^H]=\deg(m_{\alpha,K^H})\leq\deg(p)=\lvert\Orb(H)\rvert=\lvert H\rvert$.
+\end{proof}
+
+\begin{theorem}
+    If $F\subseteq K$ is finite Galois, and $H\leq\Gal(K/F)=G$, then $H$ is a normal subgroup if and only if
+    $F\subseteq K^H$ is normal.
+    It holds that $\Gal(K^H/F)\cong G/H$.
+\end{theorem}
+
+\begin{theorem}[Base Change]
+    If $F\subseteq K,L\subseteq\overline{F}$ are fields, then $\Gal(KL/L)\cong\Gal(L/K\cap L)$.
+\end{theorem}
+
+
+\section{Solvable Extensions}
+
+\begin{definition}
+    A field extension $F\to K$ is \textit{principal radical} if there exists $\alpha\in K$ and $n\in\N$ which satisfy
+    $F(\alpha)=K$ and $\alpha^n\in F$.
+\end{definition}
+
+\begin{definition}
+    A field extension $F\to K$ is \textit{radical} if it is the composition of finitely many principal radical field
+    extensions.
+\end{definition}
+
+\begin{definition}
+    A field extension $F\to K$ is \textit{solvable} if there exists a field $K^\prime$ which satisfies
+    $K\subseteq K^\prime$ and that $F\to K^\prime$ is radical.
+\end{definition}
+
+\begin{lemma}
+    If $F\to K$ is Galois with $\Gal(K/F)\cong\Z_p$ and $F$ has all $p$-th roots of unity, then $F\to K$ is a principal
+    radical extension.
+\end{lemma}
+
+\begin{theorem}
+    If $F\to K$ is finite Galois and $\Char(F)=0$, then $F\to K$ is solvable if and only if $\Gal(K/F)$ is solvable.
+\end{theorem}
+
+
+\section{Constructibility}
+
+\begin{theorem}
+    Some $\alpha\in\R$ is constructible if and only if there exists a tower
+    $\Q=F_0\subset F_1\subset\dots\subset F_n\subseteq\mathbb{R}$ which satisfies $\alpha\in F_n$ and $[F_i:F_{i-1}]$
+    for all $i\in[n]$.
+\end{theorem}
+
+\begin{remark}
+    The complex constructible numbers are written $a+bi$ where $a$ and $b$ are constructible.
+    We note that $a+bi\in\C$ is constructible if and only if $a$ and $b$ are constructible.
+\end{remark}
+
+\begin{theorem}
+    Some $\alpha\in\C$ is constructible if and only if the splitting field of $m_{\alpha,\Q}$ has degree a power of 2.
+\end{theorem}
+
+\begin{theorem}
+    If $\alpha$ is a primitive $n$-th root of unity, then $\Phi_n=m_{\alpha,\Q}\in\Q$.
+\end{theorem}
+
 
 \end{document}
